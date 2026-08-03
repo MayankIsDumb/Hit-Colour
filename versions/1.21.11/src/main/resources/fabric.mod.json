@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "hitcolour",
+  "version": "${version}",
+  "name": "Hitcolour",
+  "description": "Customizable hit overlay color",
+  "authors": [
+    "mayank"
+  ],
+  "company": "afkz studio",
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/hitcolour/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["com.example.hitcolour.HitcolourMod"],
+    "modmenu": ["com.example.hitcolour.HitcolourModMenu"]
+  },
+  "mixins": [
+    "hitcolour.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21.11",
+    "java": ">=21"
+  }
+}

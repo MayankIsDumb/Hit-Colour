@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.example.hitcolour.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		${mixins_list}
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

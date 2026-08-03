@@ -1,0 +1,50 @@
+plugins {
+    id 'fabric-loom' version '1.17.17'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    maven { url "https://maven.isxander.dev/releases" }
+    maven { url "https://maven.terraformersmc.com" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:1.21.11+build.6:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+    // Dynamically build the mixins JSON based on MC version
+    def mixinEntries = ['"MixinMinecraft"', '"MixinOverlayTexture"']
+    filesMatching("hitcolour.mixins.json") {
+        filter { line ->
+            line.replace('${mixins_list}', mixinEntries.join(',\n\t\t'))
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" }
+    }
+}
