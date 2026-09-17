@@ -10,7 +10,7 @@ Customize it live in-game: press **H** (or use the **ModMenu** config button) to
 - 🔍 **Opacity slider** (0% invisible → 100% fully opaque)
 - ⚡ **Apply instantly** — no game restart, changes re-upload to the shader every tick
 - ⌨ **H key** hotkey + ModMenu integration
-- 📦 Ships for **5 Minecraft versions**
+- 📦 Ships for **6 Minecraft versions**
 
 ## Supported versions
 
@@ -21,6 +21,7 @@ Customize it live in-game: press **H** (or use the **ModMenu** config button) to
 | 26.1.1    | mojmap   | 25   |
 | 26.1.2    | mojmap   | 25   |
 | 26.2      | mojmap   | 25   |
+| 26.3      | mojmap   | 25   |
 
 Each version's source lives under `versions/` and builds independently with its own Gradle wrapper.
 

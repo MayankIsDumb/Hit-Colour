@@ -1,0 +1,56 @@
+plugins {
+    id 'fabric-loom' version '1.17.17'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    maven { url "https://maven.isxander.dev/releases" }
+    maven { url "https://maven.terraformersmc.com" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:intermediary:0.0.0:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    // NOTE: plain `implementation` (not modImplementation) is intentional on 26.x:
+    // game is already mojmap-named so no remap is needed, and Loom's dev-launcher
+    // still loads these classpath jars as mods in runClient. modImplementation
+    // makes Loom try to remap YACL's -sources.jar against empty intermediary
+    // mappings and the build fails ("Failed to remap sources").
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    implementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+    // Dynamically build the mixins JSON based on MC version
+    def mixinEntries = ['"MixinMinecraft"', '"MixinOverlayTexture"']
+    filesMatching("hitcolour.mixins.json") {
+        filter { line ->
+            line.replace('${mixins_list}', mixinEntries.join(',\n\t\t'))
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" }
+    }
+}

@@ -26,7 +26,7 @@ $dstRect = New-Object System.Drawing.Rectangle 0, 0, 128, 128
 $g.DrawImage($img, $dstRect, $srcRect, [System.Drawing.GraphicsUnit]::Pixel)
 $g.Dispose()
 
-foreach ($v in @('1.21.11','26.1','26.1.1','26.1.2','26.2')) {
+foreach ($v in @('1.21.11','26.1','26.1.1','26.1.2','26.2','26.3')) {
     $iconDir = Join-Path $root "$v\src\main\resources\assets\hitcolour"
     $bmp.Save((Join-Path $iconDir 'icon.png'), [System.Drawing.Imaging.ImageFormat]::Png)
     Write-Host "Wrote icon -> $v"

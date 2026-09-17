@@ -1,0 +1,9 @@
+{
+  "hitcolour.title": "Hitcolour",
+  "hitcolour.enable": "Enable?",
+  "hitcolour.enable.description": "Toggles the custom hit overlay color on or off.",
+  "hitcolour.color": "Color",
+  "hitcolour.color.description": "Choose the color displayed when you take damage.",
+  "hitcolour.opacity": "Opacity",
+  "hitcolour.opacity.description": "How visible the hit overlay is (0% = invisible, 100% = fully opaque)."
+}
